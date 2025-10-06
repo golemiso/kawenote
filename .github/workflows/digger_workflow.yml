@@ -29,7 +29,7 @@ jobs:
       with:
         persist-credentials: false
     - name: Run Digger (Backendless)
-      uses: golemiso/digger@9f1e28870d84b9faa1a66a3c8409dcd5d0134ed7 # v0.6.127
+      uses: golemiso/digger@5efde0a1e80414acbda8cfcb9e253687cb007335 # v0.6.127
       with:
         no-backend: true
         disable-locking: true
