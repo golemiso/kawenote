@@ -1,0 +1,39 @@
+name: Digger Backendless
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+concurrency:
+  group: digger-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  digger:
+    name: Digger
+    if: github.event_name != 'issue_comment' || github.event.issue.pull_request
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      id-token: write
+      pull-requests: write
+      issues: read
+      statuses: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+      with:
+        persist-credentials: false
+    - name: Run Digger (Backendless)
+      uses: golemiso/digger@1438f9746219bed6b7e7b108dae712660a211940 # v0.6.127
+      with:
+        no-backend: true
+        disable-locking: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+  
