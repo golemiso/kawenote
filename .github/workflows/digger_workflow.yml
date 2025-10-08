@@ -29,11 +29,10 @@ jobs:
       with:
         persist-credentials: false
     - name: Run Digger (Backendless)
-      uses: golemiso/digger@573d9f6e96063f98508cbf4f51c25003299b7cc7 # v0.6.127
+      uses: golemiso/digger@8b12e7f094e869ff1de4f0dcf353a30a3a52b21f
       with:
         no-backend: true
         disable-locking: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_CONTEXT: ${{ toJson(github) }}
-  
